@@ -6,9 +6,10 @@ var app = express();
 app.set("port",(process.env.PORT || 5000));
 
 app.get("/",function(req,res){
+	console.log("get got");
 	res.send("hello");	
 });
 
-app.listen(3000,function(){
+app.listen(app.get("port"),function(){
 	console.log("port = %s",app.get("port"));
 });
