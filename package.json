@@ -1,0 +1,18 @@
+{
+  "name": "node-js-first",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "javascript"
+  ],
+  "author": "yuki miyake",
+  "license": "Y.M.",
+  "dependencies": {
+    "jquery": "^2.1.4"
+  }
+}
