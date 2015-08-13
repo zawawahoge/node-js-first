@@ -7,15 +7,14 @@ app.set("port",(process.env.PORT || 5000));
 app.set('views', __dirname + '/ejs');
 app.set('view engine', 'ejs');
 
-var data = {
-	title: "hello",
-	}
-data.array = [1,2,3];
+
 
 
 app.get("/",function(req,res){
-	console.log("dir name = " + __dirname);
-	
+	var data = {
+		title: req.ip
+	}	
+	data.array = [1,2,3];
 	// load the template file, then render it with data
 	res.render("template",data);	
 });
