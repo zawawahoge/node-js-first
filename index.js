@@ -1,4 +1,4 @@
-var $ = require("jquery");
+
 var ejs = require("ejs");
 var express = require("express");
 var app = express();
@@ -17,12 +17,23 @@ app.get("/",function(req,res){
 	res.sendfile("index.html");	
 });
 
+var clients = [];
+
+
 io.on("connection", function(socket){
+	clients.push(socket.id);
 	console.log("get a client!");
+	io.emit("change clients",clients);
+	
 	socket.on("disconnect",function(){
+		clients.splice(clients.indexOf(socket.id),1);
+		io.emit("change clients",clients);
 		console.log("client disconnected");
 	});
+	
+	
 	socket.on("chat message", function(data){
+		if(data.nickname=="")data.nickname = "名無し";
 		var s = data.nickname + " さん:"+data.message;
 		io.emit("chat message",s);
 	});
