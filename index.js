@@ -18,13 +18,16 @@ app.get("/",function(req,res){
 });
 
 var clients = [];
-
+var msgList = [];
 
 io.on("connection", function(socket){
-	var clientIp = socket.request.connection.remoteAddress
+	var clientIp = socket.handshake.address;
 	clients.push(clientIp);
 	console.log("get a client!");
 	io.emit("change clients",clients);
+	for(var i=0;i<msgList.length;i++){
+		io.emit("chat message", msgList[i]);
+	}
 	
 	socket.on("disconnect",function(){
 		clients.splice(clients.indexOf(socket.id),1);
@@ -36,6 +39,9 @@ io.on("connection", function(socket){
 	socket.on("chat message", function(data){
 		if(data.nickname=="")data.nickname = "名無し";
 		var s = data.nickname + " さん:"+data.message;
+		
+		msgList.push(s);
+		if(msgList.length > 10) msgList.shift();
 		io.emit("chat message",s);
 	});
 });
