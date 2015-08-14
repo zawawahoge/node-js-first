@@ -21,7 +21,8 @@ var clients = [];
 
 
 io.on("connection", function(socket){
-	clients.push(socket.id);
+	var clientIp = socket.request.connection.remoteAddress
+	clients.push(clientIp);
 	console.log("get a client!");
 	io.emit("change clients",clients);
 	

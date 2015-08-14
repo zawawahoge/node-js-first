@@ -15,6 +15,8 @@
 			height: 300px;
 			padding: 10px;
 			position: relative;
+			
+    		background-color : white;
       }
       body { font: 13px Helvetica, Arial; }
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
@@ -23,6 +25,9 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      select {
+      	width: 200px;
+      }
     </style>
     <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -64,6 +69,7 @@ $chat.bind('scroll', function () {
 		socket.on("chat message",function(msg){
 			
 			$("#messages").append($("<li>").text(msg));
+			if($("li").length > 30) $("ul > li:first").remove();
   if (bottom) {
     // Only animate to bottom on 'chat message' if bottom = true
     $chat.animate({scrollTop: $chat.prop("scrollHeight")}, 500);
