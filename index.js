@@ -25,10 +25,8 @@ io.on("connection", function(socket){
 	clients.push(clientIp);
 	console.log("get a client!");
 	io.emit("change clients",clients);
-	for(var i=0;i<msgList.length;i++){
-		io.emit("chat message", msgList[i]);
-	}
-	
+	socket.emit("init",msgList);
+
 	socket.on("disconnect",function(){
 		clients.splice(clients.indexOf(socket.id),1);
 		io.emit("change clients",clients);

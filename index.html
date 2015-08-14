@@ -81,6 +81,12 @@ $chat.bind('scroll', function () {
 				$("#clients").append($("<option>").text(clients[i]));
 			}
 		});
+		socket.on("init", function(msgList){		
+			for(var i=0;i<msgList.length;i++){
+				$("#messages").append($("<li>").text(msgList[i]));
+			}
+		});
+	
 
 	</script>
   </body>
